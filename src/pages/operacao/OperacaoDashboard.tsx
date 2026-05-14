@@ -7,7 +7,7 @@ import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveCo
 import PageTitle from '../../components/layout/PageTitle'
 import MetricCard from '../../components/ui/MetricCard'
 import KPIGrid from '../../components/ui/KPIGrid'
-import MockMap from '../../components/ui/MockMap'
+import RealMap from '../../components/ui/RealMap'
 import StatusBadge from '../../components/ui/StatusBadge'
 import RiskBadge from '../../components/ui/RiskBadge'
 import AIAlertCard from '../../components/ui/AIAlertCard'
@@ -60,16 +60,16 @@ export default function OperacaoDashboard() {
               Abrir mapa <ChevronRight size={14} />
             </button>
           </div>
-          <MockMap
+          <RealMap
             height={300}
             markers={[
-              { id: 'm1', x: 22, y: 22, label: 'SCA-1A23', status: 'normal', detail: 'João Pereira' },
-              { id: 'm2', x: 40, y: 35, label: 'SCA-2B45', status: 'normal', detail: 'Carlos Mendes' },
-              { id: 'm3', x: 60, y: 52, label: 'ABC-1234', status: 'terceiro', detail: 'Terceiro Modelo · API' },
-              { id: 'm4', x: 75, y: 70, label: 'SCA-3C67', status: 'aguardando', detail: 'Rafael Souza' },
-              { id: 'm5', x: 32, y: 75, label: 'TRC-9X88', status: 'parado', detail: 'Frete Rápido PR · sem sinal' },
-              { id: 'm6', x: 86, y: 30, label: 'RDB-2024', status: 'atencao', detail: 'Rodobras · risco médio' },
-              { id: 'm7', x: 14, y: 60, label: 'CG-2026-502', status: 'evento', detail: 'CD Guarulhos · expedição' },
+              { id: 'm1', position: [-25.4400, -49.3200], label: 'SCA-1A23', status: 'normal', detail: 'João Pereira' },
+              { id: 'm2', position: [-27.4000, -48.7000], label: 'SCA-2B45', status: 'normal', detail: 'Carlos Mendes' },
+              { id: 'm3', position: [-25.4284, -49.2733], label: 'ABC-1234', status: 'terceiro', detail: 'Terceiro Modelo · API' },
+              { id: 'm4', position: [-30.0346, -51.2177], label: 'SCA-3C67', status: 'aguardando', detail: 'Rafael Souza' },
+              { id: 'm5', position: [-24.9558, -53.4552], label: 'TRC-9X88', status: 'parado', detail: 'Frete Rápido PR · sem sinal' },
+              { id: 'm6', position: [-29.1678, -51.1791], label: 'RDB-2024', status: 'atencao', detail: 'Rodobras · risco médio' },
+              { id: 'm7', position: [-23.4543, -46.5337], label: 'CG-2026-502', status: 'evento', detail: 'CD Guarulhos · expedição' },
             ]}
           />
         </div>

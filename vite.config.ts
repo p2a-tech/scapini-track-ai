@@ -17,6 +17,7 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'recharts': ['recharts'],
           'lucide': ['lucide-react'],
+          'leaflet': ['leaflet', 'react-leaflet'],
         },
       },
     },

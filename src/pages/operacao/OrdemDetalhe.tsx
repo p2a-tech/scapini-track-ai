@@ -10,8 +10,9 @@ import TrackingSourceBadge from '../../components/ui/TrackingSourceBadge'
 import TrackingScore from '../../components/ui/TrackingScore'
 import Timeline from '../../components/ui/Timeline'
 import LogisticLegTimeline from '../../components/ui/LogisticLegTimeline'
-import MockMap from '../../components/ui/MockMap'
+import RealMap from '../../components/ui/RealMap'
 import { orders } from '../../data/mockData'
+import { coordsFor } from '../../data/coords'
 
 export default function OrdemDetalhe() {
   const { id } = useParams()
@@ -66,17 +67,28 @@ export default function OrdemDetalhe() {
           </div>
 
           <div className="mt-4 border-t border-graphite-100 pt-4">
-            <div className="font-semibold text-graphite-900 mb-2">Rota simulada</div>
-            <MockMap
-              height={260}
-              showRoutes
-              markers={[
-                { id: 'a', x: 12, y: 18, label: order.origin, status: 'evento' },
-                { id: 'b', x: 38, y: 32, label: 'Filial Curitiba', status: 'evento' },
-                { id: 'c', x: 56, y: 50, label: 'Florianópolis', status: 'normal' },
-                { id: 'd', x: 78, y: 72, label: order.destination, status: 'aguardando' },
-              ]}
-            />
+            <div className="font-semibold text-graphite-900 mb-2">Rota — OpenStreetMap</div>
+            {(() => {
+              const a = coordsFor(order.origin) || [-23.5505, -46.6333]
+              const cwb = coordsFor('Curitiba/PR')!
+              const fln = coordsFor('Florianópolis/SC')!
+              const d = coordsFor(order.destination) || [-30.0346, -51.2177]
+              return (
+                <RealMap
+                  height={300}
+                  showLegend={false}
+                  markers={[
+                    { id: 'o', position: a, label: order.origin, status: 'cd' },
+                    { id: 'cwb', position: cwb, label: 'Filial Curitiba', status: 'evento' },
+                    { id: 'fln', position: fln, label: 'Florianópolis', status: 'normal', detail: 'Em trânsito' },
+                    { id: 'd', position: d, label: order.destination, status: 'cliente' },
+                  ]}
+                  routes={[
+                    { id: 'r', positions: [a, cwb, fln, d], color: '#1f365c', weight: 3, dashArray: '6 6' },
+                  ]}
+                />
+              )
+            })()}
           </div>
         </div>
 

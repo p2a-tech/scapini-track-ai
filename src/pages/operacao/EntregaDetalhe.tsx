@@ -8,9 +8,10 @@ import RiskBadge from '../../components/ui/RiskBadge'
 import TrackingSourceBadge from '../../components/ui/TrackingSourceBadge'
 import TrackingScore from '../../components/ui/TrackingScore'
 import Timeline from '../../components/ui/Timeline'
-import MockMap from '../../components/ui/MockMap'
+import RealMap from '../../components/ui/RealMap'
 import LogisticLegTimeline from '../../components/ui/LogisticLegTimeline'
 import { deliveries, orders } from '../../data/mockData'
+import { coordsFor } from '../../data/coords'
 
 export default function EntregaDetalhe() {
   const { id } = useParams()
@@ -56,17 +57,26 @@ export default function EntregaDetalhe() {
           </div>
 
           <div className="card p-4">
-            <div className="font-semibold text-graphite-900 mb-3">Rota simulada</div>
-            <MockMap
-              height={260}
-              showRoutes
-              markers={[
-                { id: 'o', x: 14, y: 22, label: d.origin, status: 'evento' },
-                { id: 'c', x: 36, y: 36, label: 'Curitiba/PR', status: 'evento' },
-                { id: 'f', x: 56, y: 50, label: 'Florianópolis/SC', status: 'normal' },
-                { id: 'd', x: 80, y: 72, label: d.destination, status: 'aguardando' },
-              ]}
-            />
+            <div className="font-semibold text-graphite-900 mb-3">Rota — OpenStreetMap</div>
+            {(() => {
+              const o = coordsFor(d.origin) || [-23.5505, -46.6333]
+              const cwb = coordsFor('Curitiba/PR')!
+              const fln = coordsFor('Florianópolis/SC')!
+              const dest = coordsFor(d.destination) || [-30.0346, -51.2177]
+              return (
+                <RealMap
+                  height={300}
+                  showLegend={false}
+                  markers={[
+                    { id: 'o', position: o, label: d.origin, status: 'cd' },
+                    { id: 'c', position: cwb, label: 'Filial Curitiba/PR', status: 'evento' },
+                    { id: 'f', position: fln, label: 'Florianópolis/SC', status: 'normal' },
+                    { id: 'dst', position: dest, label: d.destination, status: 'cliente' },
+                  ]}
+                  routes={[{ id: 'r', positions: [o, cwb, fln, dest], color: '#1f365c', weight: 3, dashArray: '6 6' }]}
+                />
+              )
+            })()}
           </div>
 
           {o && o.legs.length > 0 && (

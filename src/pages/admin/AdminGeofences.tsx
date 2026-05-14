@@ -1,10 +1,35 @@
 import PageTitle from '../../components/layout/PageTitle'
-import MockMap from '../../components/ui/MockMap'
+import RealMap, { RealGeofence, RealMarker } from '../../components/ui/RealMap'
 import { geofences } from '../../data/mockData'
 import StatusBadge from '../../components/ui/StatusBadge'
 import { Edit2, Plus } from 'lucide-react'
 
+const positions: Record<string, [number, number]> = {
+  'gf-1': [-23.4350, -46.5350], // CD Guarulhos
+  'gf-2': [-25.4500, -49.2500], // Filial Curitiba
+  'gf-3': [-27.5900, -48.5400], // Filial Florianópolis
+  'gf-4': [-30.0100, -51.2000], // CD Porto Alegre
+  'gf-5': [-29.9177, -51.1839], // Cliente Canoas
+  'gf-6': [-23.5505, -46.6333], // Região Metropolitana SP (centroid)
+  'gf-7': [-26.3100, -48.8500], // Hub Joinville
+}
+
 export default function AdminGeofences() {
+  const markers: RealMarker[] = geofences.map((g) => ({
+    id: g.id,
+    position: positions[g.id] || [-26.5, -49.5],
+    label: g.name,
+    detail: `${g.type} · raio ${g.radius >= 1000 ? (g.radius / 1000).toFixed(0) + ' km' : g.radius + ' m'}`,
+    status: g.type === 'CD' || g.type === 'Filial' ? 'cd' : g.type === 'Cliente' ? 'cliente' : 'evento',
+  }))
+  const circles: RealGeofence[] = geofences.map((g) => ({
+    id: 'c-' + g.id,
+    center: positions[g.id] || [-26.5, -49.5],
+    radius: g.radius,
+    color: g.type === 'CD' || g.type === 'Filial' ? '#1f365c' : g.type === 'Cliente' ? '#ff7d2e' : '#356bb6',
+    label: g.name,
+  }))
+
   return (
     <div>
       <PageTitle
@@ -16,14 +41,8 @@ export default function AdminGeofences() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="card p-4 lg:col-span-2">
-          <div className="font-semibold text-graphite-900 mb-3">Visão geral</div>
-          <MockMap height={420} markers={[
-            { id: 'g1', x: 30, y: 20, label: 'CD Guarulhos', status: 'evento' },
-            { id: 'g2', x: 50, y: 35, label: 'Filial Curitiba', status: 'evento' },
-            { id: 'g3', x: 64, y: 55, label: 'Filial Floripa', status: 'evento' },
-            { id: 'g4', x: 70, y: 78, label: 'CD POA', status: 'evento' },
-            { id: 'g5', x: 28, y: 70, label: 'Hub Joinville', status: 'evento' },
-          ]} />
+          <div className="font-semibold text-graphite-900 mb-3">Visão geral — OpenStreetMap</div>
+          <RealMap height={460} markers={markers} geofences={circles} />
         </div>
         <div className="card p-4 max-h-[480px] overflow-y-auto">
           <div className="font-semibold text-graphite-900 mb-3">Lista</div>
