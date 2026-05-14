@@ -107,7 +107,7 @@ const groups: NavGroup[] = [
   },
 ]
 
-export default function Sidebar({ collapsed, onClose }: { collapsed?: boolean; onClose?: () => void }) {
+export default function Sidebar({ collapsed, onClose, mobileOpen }: { collapsed?: boolean; onClose?: () => void; mobileOpen?: boolean }) {
   const location = useLocation()
   const [open, setOpen] = useState<Record<string, boolean>>(() => {
     const r: Record<string, boolean> = {}
@@ -116,7 +116,17 @@ export default function Sidebar({ collapsed, onClose }: { collapsed?: boolean; o
   })
 
   return (
-    <aside className={`${collapsed ? 'w-16' : 'w-72'} fixed inset-y-0 left-0 z-30 bg-navy-900 text-navy-100 flex flex-col transition-all duration-200`}>
+    <>
+      {/* Overlay para mobile drawer */}
+      {mobileOpen && (
+        <div onClick={onClose} className="lg:hidden fixed inset-0 z-40 bg-navy-950/60 backdrop-blur-sm"></div>
+      )}
+      <aside
+        className={`${collapsed ? 'w-16' : 'w-72'} fixed inset-y-0 left-0 z-50 bg-navy-900 text-navy-100 flex flex-col transition-transform duration-300 lg:translate-x-0 ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        }`}
+        aria-hidden={!mobileOpen}
+      >
       <div className="flex items-center gap-3 px-4 py-4 border-b border-navy-800">
         <div className="w-9 h-9 rounded-lg bg-accent-500 flex items-center justify-center shrink-0">
           <Truck size={20} className="text-white" />
@@ -181,6 +191,7 @@ export default function Sidebar({ collapsed, onClose }: { collapsed?: boolean; o
           v1.0 — Substituindo o Rota Livre
         </div>
       )}
-    </aside>
+      </aside>
+    </>
   )
 }

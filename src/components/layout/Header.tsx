@@ -11,10 +11,16 @@ export default function Header({ onToggleSidebar }: { onToggleSidebar?: () => vo
 
   return (
     <header className="sticky top-0 z-20 bg-white/95 backdrop-blur border-b border-graphite-200">
-      <div className="flex items-center gap-3 px-4 lg:px-6 py-3">
-        <button onClick={onToggleSidebar} className="p-2 hover:bg-graphite-100 rounded-lg lg:hidden">
-          <Menu size={18} />
+      <div className="flex items-center gap-2 lg:gap-3 px-3 lg:px-6 py-2.5 lg:py-3">
+        <button onClick={onToggleSidebar} className="p-2 hover:bg-graphite-100 rounded-lg lg:hidden" aria-label="Abrir menu">
+          <Menu size={20} />
         </button>
+        <div className="lg:hidden flex items-center gap-2 min-w-0 flex-1">
+          <div className="w-8 h-8 rounded-lg bg-navy-900 text-white flex items-center justify-center shrink-0 text-[11px] font-bold">ST</div>
+          <div className="min-w-0">
+            <div className="font-bold text-graphite-900 text-sm leading-tight truncate">Scapini Track AI</div>
+          </div>
+        </div>
         <div className="hidden md:flex items-center gap-2 max-w-md flex-1">
           <div className="relative w-full">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-graphite-400" />
@@ -24,8 +30,6 @@ export default function Header({ onToggleSidebar }: { onToggleSidebar?: () => vo
             />
           </div>
         </div>
-
-        <div className="flex-1 md:hidden"></div>
 
         <div className="flex items-center gap-1 lg:gap-2">
           <button

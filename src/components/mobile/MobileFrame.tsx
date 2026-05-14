@@ -1,7 +1,20 @@
 import { ReactNode } from 'react'
 import { Wifi, Battery, Signal } from 'lucide-react'
+import { useIsMobile } from '../../hooks/useIsMobile'
 
 export default function MobileFrame({ children, label }: { children: ReactNode; label?: string }) {
+  const isMobile = useIsMobile()
+
+  // Em dispositivos mobile (telas pequenas) renderiza fullscreen, sem o frame de celular
+  if (isMobile) {
+    return (
+      <div className="min-h-screen bg-graphite-50">
+        {children}
+      </div>
+    )
+  }
+
+  // Desktop: renderiza dentro do frame de iPhone para demonstração
   return (
     <div className="flex flex-col items-center">
       {label && <div className="text-xs text-graphite-500 uppercase tracking-wide mb-3">{label}</div>}

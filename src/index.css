@@ -6,12 +6,32 @@
   html, body, #root {
     height: 100%;
   }
+  html {
+    /* Safe areas para PWA em iOS */
+    height: 100%;
+    height: -webkit-fill-available;
+  }
   body {
     @apply bg-graphite-50 text-graphite-900 font-sans antialiased;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    /* respeita safe areas (notch / home indicator) */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    overscroll-behavior-y: none;
   }
   * {
     -webkit-tap-highlight-color: transparent;
+  }
+  /* Permite seleção em inputs e textareas mesmo com tap-highlight removido */
+  input, textarea, [contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  /* Quando em modo PWA standalone, oculta scroll-bounce em iOS */
+  @media (display-mode: standalone) {
+    body { overscroll-behavior: contain; }
   }
 }
 

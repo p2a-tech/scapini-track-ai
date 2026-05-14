@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" fill="#1f365c"/>
+  <g transform="translate(140, 200)">
+    <path d="M14 100 L62 60 L110 100 L180 8 L250 100 L320 38" stroke="#ff7d2e" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="320" cy="38" r="20" fill="#ff7d2e"/>
+  </g>
+  <text x="256" y="380" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="44" fill="#ffffff" letter-spacing="-1">SCAPINI</text>
+</svg>
