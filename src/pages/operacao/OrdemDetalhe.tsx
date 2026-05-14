@@ -1,7 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import {
   Truck, MapPin, FileText, Edit, Sparkles, Bell, MessageSquare, CheckCircle2,
-  Receipt, AlertTriangle, RotateCw, Building2,
+  Receipt, AlertTriangle, RotateCw, Building2, Eye,
 } from 'lucide-react'
 import PageTitle from '../../components/layout/PageTitle'
 import StatusBadge from '../../components/ui/StatusBadge'
@@ -27,6 +27,7 @@ export default function OrdemDetalhe() {
         breadcrumb={['Operação', 'Ordens de transporte', order.number]}
         actions={
           <>
+            <button onClick={() => navigate(`/operacao/pedidos/${order.id}/visao-360`)} className="btn-accent"><Eye size={14} /> Visão 360 (tempo e prazo)</button>
             <button className="btn-outline"><Edit size={14} /> Editar</button>
             <button className="btn-outline"><MapPin size={14} /> Programar rota</button>
             <button className="btn-outline"><FileText size={14} /> Emitir CT-e</button>

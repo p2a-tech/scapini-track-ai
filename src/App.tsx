@@ -29,9 +29,14 @@ import OcorrenciaDetalhe from './pages/operacao/OcorrenciaDetalhe'
 import DocumentosFiscais from './pages/operacao/DocumentosFiscais'
 import DevicesList from './pages/operacao/DevicesList'
 import Comprovantes from './pages/operacao/Comprovantes'
+import PedidoVisao360 from './pages/operacao/PedidoVisao360'
+import CargaVisao360 from './pages/operacao/CargaVisao360'
+import CargaPernas from './pages/operacao/CargaPernas'
+import PrazosEntrega from './pages/operacao/PrazosEntrega'
 // cliente
 import ClienteLogin from './pages/cliente/ClienteLogin'
 import ClienteRastreio from './pages/cliente/ClienteRastreio'
+import ClienteRastreioDetalhado from './pages/cliente/ClienteRastreioDetalhado'
 import ClienteDashboard from './pages/cliente/ClienteDashboard'
 import ClienteEntregaDetalhe from './pages/cliente/ClienteEntregaDetalhe'
 import ClienteNotificacoes from './pages/cliente/ClienteNotificacoes'
@@ -106,6 +111,7 @@ export default function App() {
       {/* Cliente (portal cliente) */}
       <Route path="/cliente/login" element={<ClienteLogin />} />
       <Route path="/cliente/rastreio" element={<ClienteRastreio />} />
+      <Route path="/cliente/rastreio-detalhado" element={<ClienteRastreioDetalhado />} />
       <Route path="/cliente/dashboard" element={<ClienteDashboard />} />
       <Route path="/cliente/entregas/:id" element={<ClienteEntregaDetalhe />} />
       <Route path="/cliente/notificacoes" element={<ClienteNotificacoes />} />
@@ -146,6 +152,10 @@ export default function App() {
       <Route path="/operacao/documentos" element={<Shell Component={DocumentosFiscais} />} />
       <Route path="/operacao/devices" element={<Shell Component={DevicesList} />} />
       <Route path="/operacao/comprovantes" element={<Shell Component={Comprovantes} />} />
+      <Route path="/operacao/pedidos/:id/visao-360" element={<Shell Component={PedidoVisao360} />} />
+      <Route path="/operacao/cargas/:id/visao-360" element={<Shell Component={CargaVisao360} />} />
+      <Route path="/operacao/cargas/:id/pernas" element={<Shell Component={CargaPernas} />} />
+      <Route path="/operacao/prazos-entrega" element={<Shell Component={PrazosEntrega} />} />
 
       {/* Comercial / Financeiro */}
       <Route path="/comercial/tabelas-frete" element={<Shell Component={TabelasFrete} />} />

@@ -15,8 +15,9 @@ export default function ClienteDashboard() {
         <div className="text-sm text-navy-200">Olá, Cláudia 👋</div>
         <h1 className="text-2xl font-bold mt-1">Acompanhe suas entregas em tempo real</h1>
         <p className="text-sm text-navy-200 mt-1">Você tem 4 entregas em andamento e 1 ocorrência aguardando notificação.</p>
-        <div className="mt-3 flex gap-2">
-          <button onClick={() => navigate('/cliente/rastreio')} className="bg-accent-500 hover:bg-accent-600 rounded-lg px-4 py-2 text-sm font-semibold">Rastrear entrega</button>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button onClick={() => navigate('/cliente/rastreio-detalhado')} className="bg-accent-500 hover:bg-accent-600 rounded-lg px-4 py-2 text-sm font-semibold">Rastreio detalhado</button>
+          <button onClick={() => navigate('/cliente/rastreio')} className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-2 text-sm font-semibold">Rastreio rápido</button>
           <button onClick={() => navigate('/ia/cliente')} className="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-2 text-sm font-semibold"><MessageSquare className="inline mr-1" size={14} />Falar com assistente</button>
         </div>
       </div>

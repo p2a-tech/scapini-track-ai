@@ -19,6 +19,7 @@ const groups: NavGroup[] = [
     items: [
       { to: '/operacao/dashboard', label: 'Dashboard TMS', icon: LayoutDashboard },
       { to: '/operacao/coletas', label: 'Pedidos de coleta', icon: PackageSearch },
+      { to: '/operacao/prazos-entrega', label: 'Prazos de entrega', icon: ClipboardList, badge: 'ETA' },
       { to: '/operacao/ordens', label: 'Ordens de transporte', icon: ClipboardList },
       { to: '/operacao/etapas-logisticas', label: 'Etapas logísticas', icon: Workflow },
       { to: '/operacao/programacao-cargas', label: 'Programação de cargas', icon: Boxes },
