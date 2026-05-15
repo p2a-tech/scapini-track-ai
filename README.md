@@ -67,9 +67,33 @@ vercel --prod       # deploy de produção
 
 ### Variáveis de ambiente
 
-Não há variáveis obrigatórias — o protótipo roda 100% com dados mockados em memória.
+- **`ANTHROPIC_API_KEY`** (opcional) — chave da API Claude usada pela Serverless Function `/api/chat` para alimentar o Assistente IA — Operação. Sem ela, o assistente continua funcionando em "modo demo" com respostas heurísticas locais. Configure em **Project Settings → Environment Variables** na Vercel.
 
-Se no futuro houver backend, defina em **Project Settings → Environment Variables** na Vercel, no padrão `VITE_API_URL=https://...` (precisa do prefixo `VITE_` para o Vite expor ao client).
+> A chave **nunca** é exposta ao navegador: ela só é lida no servidor (Vercel Function) via `process.env`.
+
+Para testar localmente com `vercel dev`:
+```bash
+cp .env.example .env.local
+# edite .env.local e cole sua chave real
+npm install -g vercel
+vercel dev
+```
+
+---
+
+## Assistente IA — Operação (integração real com Claude)
+
+A página `/ia/operacao` chama uma **Vercel Serverless Function** (`api/chat.ts`) que faz proxy seguro para a API da Anthropic. O frontend manda um snapshot do estado atual da operação (ordens, entregas, devices, terceiros, alertas) como contexto, e o Claude responde com base nesses dados.
+
+**Como funciona:**
+1. Frontend (`src/utils/aiClient.ts`) monta o `messages[]` e o `context` (resumo dos mocks).
+2. POST para `/api/chat`.
+3. `api/chat.ts` (Node runtime) lê `process.env.ANTHROPIC_API_KEY`, prepende o system prompt operacional e chama `client.messages.create({ model: 'claude-sonnet-4-5' })`.
+4. Resposta volta em JSON `{ text, model, usage }`.
+
+**Modo demo automático:** se a chave não estiver configurada, a função retorna 503 e o frontend renderiza um banner amarelo, ainda respondendo via heurísticas locais (útil para apresentação comercial antes de provisionar a chave).
+
+**System prompt** — em `api/chat.ts`. As regras críticas incluem: nunca inventar dados, sempre indicar última atualização conhecida, nunca expor localização exata ao cliente final, pedir confirmação em ações destrutivas.
 
 ---
 
